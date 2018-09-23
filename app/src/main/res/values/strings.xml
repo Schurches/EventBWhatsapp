@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Whatsapp</string>
+    <string name="item_new_chat">New chat</string>
+    <string name="item_new_broadcast">New broadcast</string>
+    <string name="option_start_chat">Start chatting</string>
+    <string name="option_send_broadcast">Send</string>
+    <string name="option_mute">Mute</string>
+    <string name="option_unmute">Unmute</string>
+    <string name="option_delete">Delete</string>
+    <string name="option_cancel">Cancel</string>
+</resources>
