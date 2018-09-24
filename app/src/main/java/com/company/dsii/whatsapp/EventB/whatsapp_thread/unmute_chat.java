@@ -1,16 +1,16 @@
-package whatsapp_thread;
+package com.company.dsii.whatsapp.EventB.whatsapp_thread;
 
-import eventb_prelude.*;
-import Util.Utilities;
+import com.company.dsii.whatsapp.EventB.eventb_prelude.*;
+import com.company.dsii.whatsapp.EventB.Util.Utilities;
 
-public class unmute_chat extends Thread{
-	/*@ spec_public */ private machine0 machine; // reference to the machine 
+public class unmute_chat{
+	/*@ spec_public */ private machine2 machine; // reference to the machine 
 
 	/*@ public normal_behavior
 		requires true;
 		assignable \everything;
 		ensures this.machine == m; */
-	public unmute_chat(machine0 m) {
+	public unmute_chat(machine2 m) {
 		this.machine = m;
 	}
 
@@ -40,13 +40,4 @@ public class unmute_chat extends Thread{
 		}
 	}
 
-	public void run() {
-		while(true) {
-			Integer u1 = Utilities.someVal(new BSet<Integer>((new Enumerated(1,Utilities.max_integer))));
-			Integer u2 = Utilities.someVal(new BSet<Integer>((new Enumerated(1,Utilities.max_integer))));
-			machine.lock.lock(); // start of critical section
-			run_unmute_chat(u1,u2);
-			machine.lock.unlock(); // end of critical section
-		}
-	}
 }

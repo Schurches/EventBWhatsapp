@@ -1,4 +1,4 @@
-package eventb_prelude;
+package com.company.dsii.whatsapp.EventB.eventb_prelude;
 
 
 /** representation of a pair of elements in Java

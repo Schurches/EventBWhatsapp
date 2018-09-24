@@ -1,16 +1,16 @@
-package whatsapp_thread;
+package com.company.dsii.whatsapp.EventB.whatsapp_thread;
 
-import eventb_prelude.*;
-import Util.Utilities;
+import com.company.dsii.whatsapp.EventB.eventb_prelude.*;
+import com.company.dsii.whatsapp.EventB.Util.Utilities;
 
-public class remove_content extends Thread{
-	/*@ spec_public */ private machine0 machine; // reference to the machine 
+public class remove_content{
+	/*@ spec_public */ private machine2 machine; // reference to the machine 
 
 	/*@ public normal_behavior
 		requires true;
 		assignable \everything;
 		ensures this.machine == m; */
-	public remove_content(machine0 m) {
+	public remove_content(machine2 m) {
 		this.machine = m;
 	}
 
@@ -40,14 +40,4 @@ public class remove_content extends Thread{
 		}
 	}
 
-	public void run() {
-		while(true) {
-			Integer c = Utilities.someVal(new BSet<Integer>((new Enumerated(1,Utilities.max_integer))));
-			Integer u1 = Utilities.someVal(new BSet<Integer>((new Enumerated(1,Utilities.max_integer))));
-			Integer u2 = Utilities.someVal(new BSet<Integer>((new Enumerated(1,Utilities.max_integer))));
-			machine.lock.lock(); // start of critical section
-			run_remove_content(c,u1,u2);
-			machine.lock.unlock(); // end of critical section
-		}
-	}
 }

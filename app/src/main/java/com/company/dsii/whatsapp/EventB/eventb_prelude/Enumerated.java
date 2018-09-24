@@ -1,4 +1,4 @@
-package eventb_prelude;
+package com.company.dsii.whatsapp.EventB.eventb_prelude;
 
 /** Enumerated type in Java
  * @author Tim Wahls & Nestor Catano & Victor Rivera

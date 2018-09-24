@@ -1,4 +1,4 @@
-package eventb_prelude;
+package com.company.dsii.whatsapp.EventB.eventb_prelude;
 
 
 /** representation of the EventB type NAT1 as a BSet

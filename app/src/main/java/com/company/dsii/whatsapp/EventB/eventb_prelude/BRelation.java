@@ -1,4 +1,4 @@
-package eventb_prelude;
+package com.company.dsii.whatsapp.EventB.eventb_prelude;
 
 import java.util.TreeSet;
 import java.util.Iterator;

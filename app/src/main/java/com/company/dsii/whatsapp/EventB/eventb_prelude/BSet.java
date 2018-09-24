@@ -1,4 +1,4 @@
-package eventb_prelude;
+package com.company.dsii.whatsapp.EventB.eventb_prelude;
 
 /** a class to model B sets in Java 
  * @author Tim Wahls & Nestor Catano & Victor Rivera

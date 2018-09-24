@@ -10,16 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".ChatListActivity">
+            android:name=".AppActivities.ChatListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UsersListActivity" />
-        <activity android:name=".ChatRoomActivity" />
-        <activity android:name=".OptionPaneActivity"/>
+        <activity android:name=".AppActivities.UsersListActivity" />
+        <activity android:name=".AppActivities.ChatRoomActivity" />
+        <activity android:name=".AppActivities.OptionPaneActivity"
+            android:theme="@style/Base.ThemeOverlay.AppCompat.Dialog"/>
     </application>
 
 </manifest>

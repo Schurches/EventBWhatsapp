@@ -1,16 +1,16 @@
-package whatsapp_thread;
+package com.company.dsii.whatsapp.EventB.whatsapp_thread;
 
-import eventb_prelude.*;
-import Util.Utilities;
+import com.company.dsii.whatsapp.EventB.eventb_prelude.*;
+import com.company.dsii.whatsapp.EventB.Util.Utilities;
 
-public class add_user extends Thread{
-	/*@ spec_public */ private machine0 machine; // reference to the machine 
+public class add_user{
+	/*@ spec_public */ private machine2 machine; // reference to the machine 
 
 	/*@ public normal_behavior
 		requires true;
 		assignable \everything;
 		ensures this.machine == m; */
-	public add_user(machine0 m) {
+	public add_user(machine2 m) {
 		this.machine = m;
 	}
 
@@ -36,19 +36,10 @@ public class add_user extends Thread{
 			BRelation<Integer,BRelation<Integer,BSet<Integer>>> chatcontent_tmp = machine.get_chatcontent();
 			BRelation<Integer,BRelation<Integer,BRelation<Integer,Integer>>> screen_tmp = machine.get_screen();
 			machine.set_user((user_tmp.union(new BSet<Integer>(u))));
-                        machine.set_chatcontent((chatcontent_tmp.override(new BRelation<Integer,BRelation<Integer,BSet<Integer>>>(new Pair<Integer,BRelation<Integer,BSet<Integer>>>(u,BRelation.EMPTY)))));
-                        machine.set_screen((screen_tmp.override(new BRelation<Integer,BRelation<Integer,BRelation<Integer,Integer>>>(new Pair<Integer,BRelation<Integer,BRelation<Integer,Integer>>>(u,BRelation.cross(user_tmp,BSet.EMPTY))))));
+machine.set_chatcontent((chatcontent_tmp.override(new BRelation<Integer,BRelation<Integer,BSet<Integer>>>(new Pair<Integer,BRelation<Integer,BSet<Integer>>>(u,BRelation.EMPTY)))));
+machine.set_screen((screen_tmp.override(new BRelation<Integer,BRelation<Integer,BRelation<Integer,Integer>>>(new Pair<Integer,BRelation<Integer,BRelation<Integer,Integer>>>(u,BRelation.cross(user_tmp,BSet.EMPTY))))));
 			System.out.println("add_user executed u: " + u + " ");
 		}
 	}
 
-
-	public void run() {
-		while(true) {
-			Integer u = Utilities.someVal(new BSet<Integer>((new Enumerated(1,Utilities.max_integer))));
-			machine.lock.lock(); // start of critical section
-			run_add_user(u);
-			machine.lock.unlock(); // end of critical section
-		}
-	}
 }

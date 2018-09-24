@@ -1,6 +1,6 @@
-package Util;
+package com.company.dsii.whatsapp.EventB.Util;
+import com.company.dsii.whatsapp.EventB.eventb_prelude.*;
 import java.util.Random;
-import eventb_prelude.*;
 
 public class Utilities {
 	//Class Utilities implements the Bakery Algorithm and
