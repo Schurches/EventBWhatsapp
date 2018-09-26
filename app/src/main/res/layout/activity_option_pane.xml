@@ -14,6 +14,7 @@
         android:layout_weight="1">
 
         <ImageView
+            android:src="@drawable/ic_unmute"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="center"/>
@@ -21,6 +22,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#000"
             android:text="Mute chat"
             android:textAlignment="center"/>
 
@@ -32,6 +34,7 @@
         android:layout_weight="1">
 
         <ImageView
+            android:src="@drawable/ic_delete"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="center"/>
@@ -39,6 +42,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#000"
             android:text="Delete chat"
             android:textAlignment="center"/>
 

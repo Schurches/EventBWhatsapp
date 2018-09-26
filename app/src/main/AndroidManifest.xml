@@ -9,8 +9,7 @@
         android:roundIcon="@mipmap/images"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity
-            android:name=".AppActivities.ChatListActivity">
+        <activity android:name=".AppActivities.ChatListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,8 +18,10 @@
         </activity>
         <activity android:name=".AppActivities.UsersListActivity" />
         <activity android:name=".AppActivities.ChatRoomActivity" />
-        <activity android:name=".AppActivities.OptionPaneActivity"
-            android:theme="@style/Base.ThemeOverlay.AppCompat.Dialog"/>
+        <activity
+            android:name=".AppActivities.OptionPaneActivity"
+            android:theme="@style/Theme.AppCompat.Dialog.Alert" />
+        <activity android:name=".AppActivities.BroadcastActivity"></activity>
     </application>
 
 </manifest>

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.company.dsii.whatsapp.Models.Chat;
 import com.company.dsii.whatsapp.Models.User;
@@ -21,7 +22,7 @@ public class UsersAdapter extends BaseAdapter{
     public UsersAdapter(Context context, ArrayList<User> userList) {
         this.context = context;
         this.userList = userList;
-    }
+      }
 
 
     @Override
@@ -34,7 +35,8 @@ public class UsersAdapter extends BaseAdapter{
         return userList.get(i);
     }
 
-    @Override
+
+     @Override
     public long getItemId(int position) {
         return position;
     }
@@ -47,6 +49,7 @@ public class UsersAdapter extends BaseAdapter{
             selectedUser = inf.inflate(R.layout.user_item, null);
         }
         User currentUser= userList.get(position);
+        Toast.makeText(context,currentUser.getUsername(),Toast.LENGTH_LONG);
         //Chat title
         TextView chatName = selectedUser.findViewById(R.id.userName);
         chatName.setText(currentUser.getUsername());
@@ -54,7 +57,7 @@ public class UsersAdapter extends BaseAdapter{
         TextView chatDate = selectedUser.findViewById(R.id.userStatus);
         chatDate.setText(currentUser.getStatus());
         //Chat last message
-        TextView lastMessage = selectedUser.findViewById(R.id.userState);
+        //TextView lastMessage = selectedUser.findViewById(R.id.userState);
         //lastMessage.setText(currentChat.getMessagePreview());
 
         return selectedUser;

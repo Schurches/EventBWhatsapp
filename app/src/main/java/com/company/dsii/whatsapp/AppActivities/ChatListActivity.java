@@ -23,12 +23,13 @@ import java.util.ArrayList;
 
 public class ChatListActivity extends AppCompatActivity {
 
-    ListView chatList;
-    ChatAdapter chatListAdapter;
-
-    final int INITCODE= 1000;
-    final int MUTECODE = 1001;
-    final int DELETECODE = 1002;
+    private ListView chatList;
+    private ChatAdapter chatListAdapter;
+    private final int INITCODE= 1000;
+    private final int MUTECODE = 1001;
+    private final int DELETECODE = 1002;
+    private final ArrayList<Chat> chatListing = new ArrayList<>();
+    private final ArrayList<User> userList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +38,37 @@ public class ChatListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat_list);
         Toolbar toolbar = findViewById(R.id.chats_toolbar_menu);
         setSupportActionBar(toolbar);
-
-        ArrayList<Chat> asd = new ArrayList<>();
-        asd.add(new Chat(1,1,1,new ArrayList<Integer>(),"Alo"));
-        ArrayList<User> asd2 = new ArrayList<>();
-        asd2.add(new User(1,"Bielos","Soy la verga",new ArrayList<Integer>(),new ArrayList<Integer>()));
         chatList = findViewById(R.id.chatList);
-        chatListAdapter = new ChatAdapter(this, asd, asd2);
+        iniChatListInformation();
+        iniUserListInformation();
+        chatListAdapter = new ChatAdapter(this, chatListing, userList);
         chatList.setAdapter(chatListAdapter);
         iniChatlistListener();
+    }
+
+
+    public void iniUserListInformation(){
+        ArrayList<Integer> friendsList = new ArrayList<>();
+        ArrayList<Integer> friendChatList = new ArrayList<>();
+        friendChatList.add(6);
+        friendChatList.add(2);
+        friendChatList.add(1);
+        friendChatList.add(5);
+        friendsList.add(3);
+        friendsList.add(6);
+        friendsList.add(1);
+        friendsList.add(7);
+        friendsList.add(2);
+        userList.add(new User(2,"Bielos","Soy la verga",friendsList,friendChatList));
+    }
+
+    public void iniChatListInformation(){
+        ArrayList<Integer> messagesList = new ArrayList<>();
+        messagesList.add(3);
+        messagesList.add(4);
+        messagesList.add(5);
+        messagesList.add(6);
+        chatListing.add(new Chat(1,2,1,messagesList,"Alo"));
     }
 
     @Override
@@ -60,6 +83,7 @@ public class ChatListActivity extends AppCompatActivity {
         switch(item.getItemId()){
             case R.id.item_new_chat:
                 Intent iniUserList = new Intent(this,UsersListActivity.class);
+                iniUserList.putExtra("Users",userList);
                 startActivity(iniUserList);
                 return true;
             default:
@@ -73,7 +97,8 @@ public class ChatListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final int pos = position;
                 Intent optionActivity = new Intent(getApplicationContext(),OptionPaneActivity.class);
-                ((Activity) parent.getContext()).startActivityForResult(optionActivity,INITCODE);
+                startActivity(optionActivity);
+                //((Activity) parent.getContext()).startActivity(optionActivity);
             }
         });
     }
