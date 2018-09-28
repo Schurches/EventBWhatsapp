@@ -3,28 +3,37 @@ package com.company.dsii.whatsapp.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class User implements Parcelable {
+public class User {
 
     int id; //ID of the user (To reference in machine2 users list)
     String username; //User name (Will be displayed in the chat)
-    String status; //User status (Just a flavor text, will be displayed on the userlist)
-    ArrayList<Integer> friends; // For database purposes, each user shall store its friends list
-    ArrayList<Integer> chats; //For database purposes, each user shall store its chats (And will be used in the chatlist)
+    String number; //User phone number (Necessary for adding users)
+    ArrayList<Integer> contacts; // Each user shall store its own list of users
+    ArrayList<Integer> chatIDs;
+    ArrayList<ArrayList<Integer>> messageIDs;
+//    ArrayList<HashMap<String,ArrayList<Integer>>> chats; //For delete_conent (self), each user shall store its chats and messages
 
-    public User(int id, String username, String status, ArrayList<Integer> friends, ArrayList<Integer> chats) {
-        this.id = id;
-        this.username = username;
-        this.status = status;
-        this.friends = friends;
-        this.chats = chats;
+    public User(){
+
     }
 
-    protected User(Parcel in) {
+    public User(int id, String username, String number, ArrayList<Integer> contacts, ArrayList<Integer> chatIDs, ArrayList<ArrayList<Integer>> messageIDs) {
+        this.id = id;
+        this.username = username;
+        this.number = number;
+        this.contacts = contacts;
+        this.chatIDs = chatIDs;
+        this.messageIDs = messageIDs;
+    }
+
+  /*  protected User(Parcel in) {
         id = in.readInt();
         username = in.readString();
-        status = in.readString();
+        number = in.readString();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -37,7 +46,7 @@ public class User implements Parcelable {
         public User[] newArray(int size) {
             return new User[size];
         }
-    };
+    };*/
 
     public int getId() {
         return id;
@@ -55,28 +64,20 @@ public class User implements Parcelable {
         this.username = username;
     }
 
-    public String getStatus() {
-        return status;
+    public ArrayList<Integer> getContacts() {
+        return contacts;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public String getNumber() {
+        return number;
     }
 
-    public ArrayList<Integer> getFriends() {
-        return friends;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
-    public void setFriends(ArrayList<Integer> friends) {
-        this.friends = friends;
-    }
-
-    public ArrayList<Integer> getChats() {
-        return chats;
-    }
-
-    public void setChats(ArrayList<Integer> chats) {
-        this.chats = chats;
+    public void setContacts(ArrayList<Integer> contacts) {
+        this.contacts = contacts;
     }
 
     public int[] ArrayToInteger(ArrayList<Integer> mArraylist) {
@@ -88,7 +89,23 @@ public class User implements Parcelable {
         return list;
     }
 
-    @Override
+    public ArrayList<Integer> getChatIDs() {
+        return chatIDs;
+    }
+
+    public void setChatIDs(ArrayList<Integer> chatIDs) {
+        this.chatIDs = chatIDs;
+    }
+
+    public ArrayList<ArrayList<Integer>> getMessageIDs() {
+        return messageIDs;
+    }
+
+    public void setMessageIDs(ArrayList<ArrayList<Integer>> messageIDs) {
+        this.messageIDs = messageIDs;
+    }
+
+/*  @Override
     public int describeContents() {
         return 0;
     }
@@ -97,8 +114,9 @@ public class User implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(id);
         parcel.writeString(username);
-        parcel.writeString(status);
-        parcel.writeIntArray(ArrayToInteger(friends));
-        parcel.writeIntArray(ArrayToInteger(chats));
+        parcel.writeString(number);
+        parcel.writeIntArray(ArrayToInteger(contacts));
+        //parcel.writeIntArray(ArrayToInteger(chats));
     }
+    */
 }

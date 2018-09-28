@@ -7,6 +7,7 @@ import com.company.dsii.whatsapp.R;
 
 public class ChatRoomActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

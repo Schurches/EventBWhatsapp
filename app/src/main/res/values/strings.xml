@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Whatsapp</string>
+    <string name="app_name">Coco Chat</string>
     <string name="item_new_chat">New chat</string>
     <string name="item_new_broadcast">New broadcast</string>
     <string name="option_start_chat">Start chatting</string>
@@ -8,4 +8,8 @@
     <string name="option_unmute">Unmute</string>
     <string name="option_delete">Delete</string>
     <string name="option_cancel">Cancel</string>
+    <string name="title_activity_yes">yesActivity</string>
+    <string name="title_activity_test">testActivity</string>
+    <string name="title_activity_yres">yres</string>
+    <string name="title_activity_no">no</string>
 </resources>

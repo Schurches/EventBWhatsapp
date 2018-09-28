@@ -5,26 +5,29 @@ import java.util.ArrayList;
 public class Chat {
 
     int id; //Chat ID (to reference in machine2 chats)
-    int chattingUserID; //userID of the chat interaction
-    int status; // 1 = active(unmuted), 0 = muted.
-    ArrayList<Integer> messages; //Messages for this chat
+    ArrayList<Integer> chattingUserID; //userID of the chat interaction
+    String title; //Chat title
     String messagePreview; //Last message sent or received
 
-    public String getMessagePreview() {
-        return messagePreview;
-    }
 
     public void setMessagePreview(String messagePreview) {
         this.messagePreview = messagePreview;
     }
 
-    public Chat(int id, int userID, int status, ArrayList<Integer> messages, String messagePreview) {
+    public Chat(){
+
+    }
+
+    public Chat(int id, ArrayList<Integer> userID, String title, String messagePreview) {
         this.id = id;
         this.chattingUserID = userID;
-        this.status = status;
-        this.messages = messages;
+        this.title = title;
         this.messagePreview = messagePreview;
 
+    }
+
+    public String getMessagePreview() {
+        return messagePreview;
     }
 
     public int getId() {
@@ -35,28 +38,19 @@ public class Chat {
         this.id = id;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public int getChattingUserID() {
+    public ArrayList<Integer> getChattingUserID() {
         return chattingUserID;
     }
 
-    public void setChattingUserID(int chattingUserID) {
+    public void setChattingUserID(ArrayList<Integer> chattingUserID) {
         this.chattingUserID = chattingUserID;
     }
 
-    public void setStatus(int status) {
-
-        this.status = status;
+    public String getTitle() {
+        return title;
     }
 
-    public ArrayList<Integer> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(ArrayList<Integer> messages) {
-        this.messages = messages;
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

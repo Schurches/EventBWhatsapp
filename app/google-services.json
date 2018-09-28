@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "715170598764",
+    "firebase_url": "https://cocochat-560a6.firebaseio.com",
+    "project_id": "cocochat-560a6",
+    "storage_bucket": "cocochat-560a6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:715170598764:android:cc94692209c336a9",
+        "android_client_info": {
+          "package_name": "com.company.dsii.whatsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "715170598764-8arr9op7nr51vnm1d6qnlrmestba36b2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.company.dsii.whatsapp",
+            "certificate_hash": "552385c33423bf9da64be37cf39e69cbc3ceecf4"
+          }
+        },
+        {
+          "client_id": "715170598764-juo0og0irrs2bv50tj2vo4flu66t5fc0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyzBojao-VeX5w-wxBLSsQqRPHHVqoncI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "715170598764-juo0og0irrs2bv50tj2vo4flu66t5fc0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

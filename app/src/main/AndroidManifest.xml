@@ -17,11 +17,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".AppActivities.UsersListActivity" />
-        <activity android:name=".AppActivities.ChatRoomActivity" />
+        <activity android:name=".AppActivities.ChatRoomActivity"/>
         <activity
             android:name=".AppActivities.OptionPaneActivity"
             android:theme="@style/Theme.AppCompat.Dialog.Alert" />
-        <activity android:name=".AppActivities.BroadcastActivity"></activity>
+        <activity android:name=".AppActivities.BroadcastActivity" />
     </application>
 
 </manifest>

@@ -8,7 +8,6 @@
     android:orientation="vertical"
     tools:context=".AppActivities.ChatListActivity">
 
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/chats_toolbar_menu"
         android:layout_width="match_parent"
@@ -16,14 +15,43 @@
         android:elevation="1dp"
         android:background="@color/colorPrimary">
 
-
     </android.support.v7.widget.Toolbar>
 
-    <ListView
-        android:id="@+id/chatList"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </ListView>
+        <ListView
+            android:id="@+id/chatList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <android.support.design.widget.FloatingActionButton
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/chatListOptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="10dp"
+            android:tint="@color/colorTextPrimary"
+            app:backgroundTint="@color/colorAccent"
+            app:elevation="4dp"
+            app:srcCompat="@drawable/ic_more" />
+
+        <android.support.design.widget.FloatingActionButton
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/startChatOption"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
+            android:tint="@color/colorTextPrimary"
+            app:backgroundTint="@color/colorAccent"
+            app:elevation="4dp"
+            app:srcCompat="@drawable/ic_chat" />
+
+    </FrameLayout>
 
 </LinearLayout>

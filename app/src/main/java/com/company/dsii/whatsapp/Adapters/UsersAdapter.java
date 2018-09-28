@@ -55,7 +55,7 @@ public class UsersAdapter extends BaseAdapter{
         chatName.setText(currentUser.getUsername());
         //Chat Date
         TextView chatDate = selectedUser.findViewById(R.id.userStatus);
-        chatDate.setText(currentUser.getStatus());
+        chatDate.setText(currentUser.getNumber());
         //Chat last message
         //TextView lastMessage = selectedUser.findViewById(R.id.userState);
         //lastMessage.setText(currentChat.getMessagePreview());

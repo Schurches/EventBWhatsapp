@@ -17,12 +17,67 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <ListView
-        android:id="@+id/userListView"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </ListView>
+        <ListView
+            android:id="@+id/userListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/userListOptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="10dp"
+            app:backgroundTint="@color/colorAccent"
+            app:elevation="4dp"
+            app:srcCompat="@drawable/ic_more" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/broadcastOption"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
+            android:tint="@color/colorTextPrimary"
+            app:fabSize="mini"
+            app:backgroundTint="@color/colorAccent"
+            app:elevation="4dp"
+            app:srcCompat="@drawable/ic_broadcast" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/userOption"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
+            android:tint="@color/colorTextPrimary"
+            app:fabSize="mini"
+            app:backgroundTint="@color/colorAccent"
+            app:elevation="4dp"
+            app:srcCompat="@drawable/ic_user" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/groupOption"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
+            android:tint="@color/colorTextPrimary"
+            app:fabSize="mini"
+            app:backgroundTint="@color/colorAccent"
+            app:elevation="4dp"
+            app:srcCompat="@drawable/ic_group" />
+
+    </FrameLayout>
 
 </LinearLayout>

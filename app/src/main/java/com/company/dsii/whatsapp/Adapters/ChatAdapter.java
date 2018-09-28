@@ -54,20 +54,24 @@ public class ChatAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View chatItem, ViewGroup viewGroup) {
         View chatBox = chatItem;
+        TextView chatName = chatBox.findViewById(R.id.chatName);
+        TextView chatDate = chatBox.findViewById(R.id.chatDate);
+        TextView lastMessage = chatBox.findViewById(R.id.chatMessage);
         if (chatBox == null) {
             LayoutInflater inf = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             chatBox = inf.inflate(R.layout.chatroom_item, null);
         }
+        User chattingUser;
         Chat currentChat= chatList.get(position);
-        User chattingUser = findUserById(currentChat.getChattingUserID());
+        if(currentChat.getChattingUserID().size() == 1){
+            chattingUser = findUserById(currentChat.getChattingUserID().get(0));
+            chatName.setText(chattingUser.getUsername());
+        }else{
+            chatName.setText(chatList.get(position).getTitle());
+        }
         //Chat title
-        TextView chatName = chatBox.findViewById(R.id.chatName);
-        chatName.setText(chattingUser.getUsername());
-        //Chat Date
-        TextView chatDate = chatBox.findViewById(R.id.chatDate);
         chatDate.setText("3:00PM");
         //Chat last message
-        TextView lastMessage = chatBox.findViewById(R.id.chatMessage);
         lastMessage.setText(currentChat.getMessagePreview());
 
         return chatBox;

@@ -1,33 +1,54 @@
 package com.company.dsii.whatsapp.AppActivities;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.company.dsii.whatsapp.Adapters.ChatAdapter;
 import com.company.dsii.whatsapp.Models.Chat;
-import com.company.dsii.whatsapp.Models.Message;
 import com.company.dsii.whatsapp.Models.User;
 import com.company.dsii.whatsapp.R;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ChatListActivity extends AppCompatActivity {
 
+    //Widgets
+    private FloatingActionButton optionFAB;
+    private FloatingActionButton chatFAB;
     private ListView chatList;
     private ChatAdapter chatListAdapter;
+    //Constants
     private final int INITCODE= 1000;
     private final int MUTECODE = 1001;
     private final int DELETECODE = 1002;
+    private int DEVICE_WIDTH;
+    private int DEVICE_HEIGHT;
+    private int floatingBaseSize;
+    private int miniFloatingBaseSize;
+    private boolean isChatListLoaded = false;
+    private boolean isUserListLoaded = false;
+    //Database connections
+    private FirebaseDatabase db = FirebaseDatabase.getInstance();
+    private DatabaseReference chatlistReference = db.getReference("Chats");
+    private DatabaseReference userListReference = db.getReference("Users");
+    //Arrays and variables
+    private boolean wereOptionsOpen = false;
     private final ArrayList<Chat> chatListing = new ArrayList<>();
     private final ArrayList<User> userList = new ArrayList<>();
 
@@ -35,40 +56,203 @@ public class ChatListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
+        //Instantiate components
         setContentView(R.layout.activity_chat_list);
         Toolbar toolbar = findViewById(R.id.chats_toolbar_menu);
-        setSupportActionBar(toolbar);
         chatList = findViewById(R.id.chatList);
-        iniChatListInformation();
-        iniUserListInformation();
-        chatListAdapter = new ChatAdapter(this, chatListing, userList);
-        chatList.setAdapter(chatListAdapter);
-        iniChatlistListener();
+        optionFAB = findViewById(R.id.chatListOptions);
+        chatFAB = findViewById(R.id.startChatOption);
+        //Pivot values
+        DEVICE_WIDTH = getResources().getDisplayMetrics().widthPixels;
+        DEVICE_HEIGHT = getResources().getDisplayMetrics().heightPixels;
+        floatingBaseSize = optionFAB.getWidth();
+        miniFloatingBaseSize = floatingBaseSize/4;
+
+
+        //Chat prueba
+        int ChatID = 1;
+        ArrayList<Integer> chattingUsers = new ArrayList<>();
+        chattingUsers.add(1);
+        String title = "Chat";
+        String messagePreview = "Hola bro";
+
+        Chat C = new Chat(ChatID,chattingUsers,title,messagePreview);
+        chatlistReference.child(title+ChatID).setValue(C);
+
+
+
+
+        //User prueba
+       /* int userID = 1;
+        int chatID = 1;
+        String number = "3022948143";
+        String username = "Alejo";
+        ArrayList<Integer> contacts = new ArrayList<>();
+        contacts.add(2);
+        contacts.add(3);
+
+        ArrayList<Integer> chatListIDs = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> messages = new ArrayList<>();
+
+        chatListIDs.add(chatID);
+        ArrayList<Integer> messagesId = new ArrayList<>();
+        messagesId.add(1);
+        messagesId.add(2);
+        messagesId.add(3);
+        messages.add(messagesId);
+        chatListIDs.add(chatID+10);
+        messages.add(messagesId);
+        User U = new User(userID,username,number,contacts,chatListIDs,messages);
+        userListReference.child(username).setValue(U);*/
+
+        //init functions
+        setSupportActionBar(toolbar);
+        iniFloatingActionButtons();
+        iniDatabaseGathering();
+        //iniChatListInformation();
+        //iniUserListInformation();
+        //Adapter
     }
 
-
-    public void iniUserListInformation(){
-        ArrayList<Integer> friendsList = new ArrayList<>();
-        ArrayList<Integer> friendChatList = new ArrayList<>();
-        friendChatList.add(6);
-        friendChatList.add(2);
-        friendChatList.add(1);
-        friendChatList.add(5);
-        friendsList.add(3);
-        friendsList.add(6);
-        friendsList.add(1);
-        friendsList.add(7);
-        friendsList.add(2);
-        userList.add(new User(2,"Bielos","Soy la verga",friendsList,friendChatList));
+    public void setAdapter(boolean isChatListLoaded, boolean isUserListLoaded){
+        if(isChatListLoaded & isUserListLoaded){
+            chatListAdapter = new ChatAdapter(this, chatListing, userList);
+            chatList.setAdapter(chatListAdapter);
+            iniChatlistListener();
+        }
     }
 
-    public void iniChatListInformation(){
-        ArrayList<Integer> messagesList = new ArrayList<>();
-        messagesList.add(3);
-        messagesList.add(4);
-        messagesList.add(5);
-        messagesList.add(6);
-        chatListing.add(new Chat(1,2,1,messagesList,"Alo"));
+    public void iniDatabaseGathering(){
+        chatlistReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                isChatListLoaded = true;
+                setAdapter(isChatListLoaded,isUserListLoaded);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        chatlistReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Chat chat_i = dataSnapshot.getValue(Chat.class);
+                chatListing.add(chat_i);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Chat chat_i = dataSnapshot.getValue(Chat.class);
+                int pos = findChatPositionById(chat_i.getId());
+                if(pos != -1){
+                    chatListing.set(pos,chat_i);
+                }
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        userListReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                isUserListLoaded = true;
+                setAdapter(isChatListLoaded,isUserListLoaded);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        userListReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                User user_i = dataSnapshot.getValue(User.class);
+                userList.add(user_i);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    public int findChatPositionById(int id){
+        int length = chatListing.size();
+        for(int i = 0; i < length; i++){
+            if(chatListing.get(i).getId() == id){
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+
+
+    public void iniFloatingActionButtons() {
+        optionFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!wereOptionsOpen){
+                    chatFAB.setVisibility(View.VISIBLE);
+                    chatFAB.setY(DEVICE_HEIGHT-DEVICE_HEIGHT/3);
+                    chatFAB.setSize(FloatingActionButton.SIZE_MINI);
+                    optionFAB.setImageResource(R.drawable.ic_cancel);
+                    optionFAB.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.colorLightAmber));
+//                optionFAB.setImageResource(R.drawable.ic_cancel);
+                    optionFAB.setSize(floatingBaseSize+miniFloatingBaseSize);
+                    wereOptionsOpen = true;
+                }else{
+                    chatFAB.setVisibility(View.INVISIBLE);
+                    chatFAB.setY(optionFAB.getY());
+                    optionFAB.setSize(FloatingActionButton.SIZE_NORMAL);
+                    optionFAB.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.colorAccent));
+                    optionFAB.setImageResource(R.drawable.ic_more);
+//                optionFAB.setImageResource(R.drawable.ic_cancel);
+                    wereOptionsOpen = false;
+                }
+                //Snackbar.make(view, "Test", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            }
+        });
+        chatFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent iniUserList = new Intent(getApplicationContext(),UsersListActivity.class);
+                iniUserList.putExtra("Users",userList);
+                startActivity(iniUserList);
+            }
+        });
     }
 
     @Override
@@ -78,18 +262,16 @@ public class ChatListActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
+/*    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.item_new_chat:
-                Intent iniUserList = new Intent(this,UsersListActivity.class);
-                iniUserList.putExtra("Users",userList);
-                startActivity(iniUserList);
+                ;
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
+    }*/
 
     public void iniChatlistListener(){
         chatList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
