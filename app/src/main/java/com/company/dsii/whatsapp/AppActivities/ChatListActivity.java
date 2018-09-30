@@ -142,6 +142,7 @@ public class ChatListActivity extends AppCompatActivity {
                 int pos = findChatPositionById(chat_i.getId());
                 if(pos != -1){
                     chatListing.set(pos,chat_i);
+                    chatListAdapter.notifyDataSetChanged();
                 }
             }
 

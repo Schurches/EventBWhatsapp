@@ -17,12 +17,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class AddContactActivity extends AppCompatActivity {
 
     private EditText phoneNumber;
     private Button addUser;
-    private DatabaseReference usersReference;
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
+    private DatabaseReference usersReference;
     private String currentUserNumber;
     private int currentUserID;
     private int currentUserContactSize;
@@ -40,7 +42,6 @@ public class AddContactActivity extends AppCompatActivity {
         currentUserNumber = data.getString("current_user_number","");
         currentUserID = data.getInt("current_user_id");
         currentUserContactSize = data.getInt("current_user_contact_size",0);
-        Log.d("asdasdasdasdasd", "onCreate: "+currentContactNumber);
         addUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {

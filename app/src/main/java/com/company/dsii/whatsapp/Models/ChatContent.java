@@ -8,6 +8,10 @@ public class ChatContent {
     private String content;
     private String date;
 
+    public ChatContent(){
+
+    }
+
     public ChatContent(int contentId, int sender, int chatID, String content, String date) {
         this.contentId = contentId;
         this.sender = sender;

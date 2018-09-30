@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.company.dsii.whatsapp.Models.ChatContent;
 import com.company.dsii.whatsapp.Models.User;
 import com.company.dsii.whatsapp.R;
 import com.company.dsii.whatsapp.Util.SparseIDs;
@@ -31,17 +32,61 @@ public class LoginActivity extends AppCompatActivity {
     private Button register;
     FirebaseDatabase db = FirebaseDatabase.getInstance();
     DatabaseReference userRef;
+    DatabaseReference sparseReference;
+    ArrayList<Boolean> isIDtaken = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         SparseIDs.initValues(-100,100);
+        sparseReference = db.getReference("Util");
         name = findViewById(R.id.username);
         num = findViewById(R.id.telNum);
         login = findViewById(R.id.loginButton);
         register = findViewById(R.id.registerButton);
-        setClickListenerForButton();
+        iniSparseArray();
+    }
+
+    public void iniSparseArray(){
+        sparseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                SparseIDs.initValues(isIDtaken);
+                setClickListenerForButton();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        sparseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                isIDtaken.add(dataSnapshot.getValue(Boolean.class));
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void checkForUserOnReference(final String route, final String username, final String number){
@@ -93,6 +138,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public User buildUser(String username, String number){
         int ID = SparseIDs.findAnAvailableID();
+        sparseReference.setValue(SparseIDs.getIsIDAvailable());
         ArrayList<Integer> chatIDs = new ArrayList<>();
         chatIDs.add(ID);
         ArrayList<Integer> contactsID = new ArrayList<>();

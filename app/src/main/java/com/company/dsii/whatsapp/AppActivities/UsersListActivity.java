@@ -51,6 +51,7 @@ public class UsersListActivity extends AppCompatActivity {
     //Database References
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private DatabaseReference userReference = db.getReference("Users");
+    private DatabaseReference sparseReference = db.getReference("Util");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -243,7 +244,8 @@ public class UsersListActivity extends AppCompatActivity {
                     }else{
                         title = "Group with "+selectedSize+" people";
                     }
-                    int id = 0;
+                    int id = SparseIDs.findAnAvailableID();
+                    sparseReference.setValue(SparseIDs.getIsIDAvailable());
                     int membersSize = chattingUserIDs.size();
                     Chat C = new Chat(id,chattingUserIDs,title,"Comienza a chatear!");
                     for(int i = 0; i < membersSize; i++){
@@ -270,6 +272,9 @@ public class UsersListActivity extends AppCompatActivity {
                 User chatMember = dataSnapshot.getValue(User.class);
                 chatMember = addMembersAsFriendsOfOtherUser(chatMember,groupMembers);
                 chatMember.getChatIDs().add(chatID);
+                ArrayList<Integer> messagesID = new ArrayList<>();
+                messagesID.add(chatMember.getId());
+                chatMember.getMessageIDs().put(chatID+"",messagesID);
                 otherUserReference.setValue(chatMember).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

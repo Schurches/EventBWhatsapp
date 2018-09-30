@@ -26,7 +26,7 @@ public class OptionPaneActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"alo",Toast.LENGTH_SHORT).show();
                 Intent chatroomActivity = new Intent(getApplicationContext(),ChatRoomActivity.class);
                 chatroomActivity.putExtra("chatID",data.getInt("chatID"));
-                chatroomActivity.putExtra("userNumber",data.getInt("userNumber"));
+                chatroomActivity.putExtra("userNumber",data.getString("userNumber"));
                 startActivity(chatroomActivity);
             }
         });
