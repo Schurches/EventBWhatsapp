@@ -25,7 +25,6 @@ public class ChatAdapter extends BaseAdapter {
         this.userList = userList;
     }
 
-
     @Override
     public int getCount() {
         return chatList.size();
@@ -53,29 +52,44 @@ public class ChatAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View chatItem, ViewGroup viewGroup) {
-        View chatBox = chatItem;
-        TextView chatName = chatBox.findViewById(R.id.chatName);
-        TextView chatDate = chatBox.findViewById(R.id.chatDate);
-        TextView lastMessage = chatBox.findViewById(R.id.chatMessage);
-        if (chatBox == null) {
+        ViewHolder chatBox;
+        if (chatItem == null) {
             LayoutInflater inf = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            chatBox = inf.inflate(R.layout.chatroom_item, null);
+            chatItem = inf.inflate(R.layout.chatroom_item, viewGroup,false);
         }
-        User chattingUser;
-        Chat currentChat= chatList.get(position);
-        if(currentChat.getChattingUserID().size() == 1){
-            chattingUser = findUserById(currentChat.getChattingUserID().get(0));
-            chatName.setText(chattingUser.getUsername());
-        }else{
-            chatName.setText(chatList.get(position).getTitle());
-        }
-        //Chat title
-        chatDate.setText("3:00PM");
-        //Chat last message
-        lastMessage.setText(currentChat.getMessagePreview());
-
-        return chatBox;
+        chatBox = new ViewHolder(chatItem);
+        chatBox.setChatInfo(chatList.get(position));
+        chatBox.chatDate.setText("3:00PM");
+        return chatItem;
     }
 
+    private class ViewHolder {
+        TextView chatName;
+        TextView chatDate;
+        TextView lastMessage;
+
+        private ViewHolder(View view) {
+            chatName = view.findViewById(R.id.chatName);
+            chatDate = view.findViewById(R.id.chatDate);
+            lastMessage = view.findViewById(R.id.chatMessage);
+            chatDate.setText("3:00PM");
+        }
+
+        private void setChatInfo(Chat currentChat){
+            User chattingUser;
+            if(currentChat.getChattingUserID().size() == 1){
+                chattingUser = findUserById(currentChat.getChattingUserID().get(0));
+                chatName.setText(chattingUser.getUsername());
+            }else{
+                chatName.setText(currentChat.getTitle());
+            }
+            setLastMessageText(currentChat.getMessagePreview());
+        }
+
+        private void setLastMessageText(String text){
+            lastMessage.setText(text);
+        }
+
+    }
 
 }

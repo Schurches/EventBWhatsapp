@@ -6,9 +6,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="50dp"
     tools:context=".AppActivities.OptionPaneActivity">
 
     <LinearLayout
+        android:id="@+id/startChat"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:src="@drawable/ic_chat"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="#fff"
+            android:text="Chatear"
+            android:textAlignment="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/muteOrunmute"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -22,13 +46,15 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#000"
-            android:text="Mute chat"
+            android:layout_gravity="center"
+            android:textColor="#fff"
+            android:text="Silenciar"
             android:textAlignment="center"/>
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/deletechat"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -42,8 +68,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#000"
-            android:text="Delete chat"
+            android:layout_gravity="center"
+            android:textColor="#fff"
+            android:text="Borrar chat"
             android:textAlignment="center"/>
 
     </LinearLayout>

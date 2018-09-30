@@ -14,14 +14,15 @@ public class User {
     String number; //User phone number (Necessary for adding users)
     ArrayList<Integer> contacts; // Each user shall store its own list of users
     ArrayList<Integer> chatIDs;
-    ArrayList<ArrayList<Integer>> messageIDs;
+//    ArrayList<ArrayList<Integer>> messageIDs;
+    HashMap<String, ArrayList<Integer>> messageIDs;
 //    ArrayList<HashMap<String,ArrayList<Integer>>> chats; //For delete_conent (self), each user shall store its chats and messages
 
     public User(){
 
     }
 
-    public User(int id, String username, String number, ArrayList<Integer> contacts, ArrayList<Integer> chatIDs, ArrayList<ArrayList<Integer>> messageIDs) {
+    public User(int id, String username, String number, ArrayList<Integer> contacts, ArrayList<Integer> chatIDs, HashMap<String,ArrayList<Integer>> messageIDs) {
         this.id = id;
         this.username = username;
         this.number = number;
@@ -30,23 +31,13 @@ public class User {
         this.messageIDs = messageIDs;
     }
 
-  /*  protected User(Parcel in) {
-        id = in.readInt();
-        username = in.readString();
-        number = in.readString();
+    public HashMap<String, ArrayList<Integer>> getMessageIDs() {
+        return messageIDs;
     }
 
-    public static final Creator<User> CREATOR = new Creator<User>() {
-        @Override
-        public User createFromParcel(Parcel in) {
-            return new User(in);
-        }
-
-        @Override
-        public User[] newArray(int size) {
-            return new User[size];
-        }
-    };*/
+    public void setMessageIDs(HashMap<String, ArrayList<Integer>> messages) {
+        this.messageIDs = messages;
+    }
 
     public int getId() {
         return id;
@@ -97,26 +88,4 @@ public class User {
         this.chatIDs = chatIDs;
     }
 
-    public ArrayList<ArrayList<Integer>> getMessageIDs() {
-        return messageIDs;
-    }
-
-    public void setMessageIDs(ArrayList<ArrayList<Integer>> messageIDs) {
-        this.messageIDs = messageIDs;
-    }
-
-/*  @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
-        parcel.writeString(username);
-        parcel.writeString(number);
-        parcel.writeIntArray(ArrayToInteger(contacts));
-        //parcel.writeIntArray(ArrayToInteger(chats));
-    }
-    */
 }

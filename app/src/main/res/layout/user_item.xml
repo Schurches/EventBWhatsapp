@@ -9,11 +9,10 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="center"
-        android:src="@drawable/ic_user"
-        android:background="@color/colorPrimary"/>
+        android:src="@drawable/ic_user"/>
 
     <LinearLayout
-        android:background="@color/colorAccent"
+        android:id="@+id/userBackground"
         android:layout_height="match_parent"
         android:layout_width="0px"
         android:layout_weight="2"
@@ -23,12 +22,14 @@
             android:id="@+id/userName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#000"
             android:text="Daniel Martinez"/>
 
         <TextView
             android:id="@+id/userStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#000"
             android:text = "Hola pri, hacia tiempo que no sabia nada de ti. Que mas como va tu vida que has hecho?"/>
 
     </LinearLayout>

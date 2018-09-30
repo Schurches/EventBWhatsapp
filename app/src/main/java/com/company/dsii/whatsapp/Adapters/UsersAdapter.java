@@ -1,10 +1,13 @@
 package com.company.dsii.whatsapp.Adapters;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,24 +46,45 @@ public class UsersAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View userItem, ViewGroup viewGroup) {
-        View selectedUser = userItem;
-        if (selectedUser == null) {
+        UserHolder userHolder;
+        if (userItem== null) {
             LayoutInflater inf = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            selectedUser = inf.inflate(R.layout.user_item, null);
+            userItem = inf.inflate(R.layout.user_item, null);
         }
-        User currentUser= userList.get(position);
-        Toast.makeText(context,currentUser.getUsername(),Toast.LENGTH_LONG);
-        //Chat title
-        TextView chatName = selectedUser.findViewById(R.id.userName);
-        chatName.setText(currentUser.getUsername());
-        //Chat Date
-        TextView chatDate = selectedUser.findViewById(R.id.userStatus);
-        chatDate.setText(currentUser.getNumber());
-        //Chat last message
-        //TextView lastMessage = selectedUser.findViewById(R.id.userState);
-        //lastMessage.setText(currentChat.getMessagePreview());
-
-        return selectedUser;
+        userHolder = new UserHolder(userItem);
+        userHolder.setUserInfo(userList.get(position));
+        userHolder.changeSelectedState();
+        return userItem;
     }
+
+    public class UserHolder {
+        TextView userName;
+        TextView userNumber;
+        LinearLayout userItemBackground;
+        boolean isSelected;
+
+        public UserHolder(View view) {
+            userName = view.findViewById(R.id.userName);
+            userNumber = view.findViewById(R.id.userStatus);
+            userItemBackground = view.findViewById(R.id.userBackground);
+            isSelected = false;
+        }
+
+        private void setUserInfo(User currentUser){
+            userName.setText(currentUser.getUsername());
+            userNumber.setText(currentUser.getNumber());
+        }
+
+        public void changeSelectedState(){
+            if(isSelected){
+                userItemBackground.setBackgroundColor(ContextCompat.getColor(context,R.color.colorDivider));
+            }else{
+                userItemBackground.setBackgroundColor(ContextCompat.getColor(context,R.color.colorTextIcons));
+            }
+
+        }
+
+    }
+
 
 }
